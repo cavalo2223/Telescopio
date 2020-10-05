@@ -1,0 +1,2 @@
+# Telescopio
+ Apenas outro repositório
