@@ -1,0 +1,59 @@
+/ * 
+  Controle de montagem telescópica EQ5 para rotação. Baseado no controlador L298N de dois motores CC com engrenagens. O controle opera com joystick. Código inspirado e modificado a partir de um esboço de demonstração em: http://dronebotworkshop.com
+* / // Motor A RA int enA = 9 ; int in1 = 8 ; int in2 = 7 ; // Motor B DEC int enB = 3 ; int in3 = 2 ; int in4 = 4 ; // Joystick Input int joyRA = A0 ; // A RA int joyDE = A1 ; // B DEC // Valores de velocidade do motor - começa em zero int MotorSpeedA =
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+
+   0 ; int MotorSpeedB = 0 ; // Valores do joystick - inicia em 512 (posição intermediária) int joyposRA = 501 ; joyposDE int = 501 ; void setup () { // Define todos os pinos de controle do motor para saídas 
+  pinMode ( enA , OUTPUT ); 
+  pinMode ( enB , OUTPUT ); 
+  pinMode ( in1 , OUTPUT ); 
+  pinMode ( in2 , OUTPUT
+   
+
+ 
+ 
+ 
+  ); 
+  pinMode ( in3 , OUTPUT ); 
+  pinMode ( in4 , OUTPUT ); // Partida com motores desabilitados e direção para frente // RA 
+  digitalWrite ( enA , LOW ); 
+  digitalWrite ( in1 , HIGH ); 
+  digitalWrite ( in2 , LOW ); // DEC 
+  digitalWrite ( enB , LOW ); 
+  digitalWrite ( in3 , HIGH );
+  
+  
+  
+  digitalWrite ( in4 , LOW ); } void loop () { // Lê as posições X e Y do Joystick 
+    joyposRA = analogRead ( joyRA ); 
+    joyposDE = analogRead ( joyDE ); if ( joyposRA   510 ) { // Define o motor B para frente 
+    digitalWrite ( in1 , HIGH ); 
+    digitalWrite ( in2 , LOW ); MotorSpeedA = map
+  
+ 
+    
+      
+    
+     ( joyposRA , 510 , 1023 , 0 , 255 ); } else if ( joyposDE   510 ) { // Define Motor RA para frente 
+    digitalWrite ( in3 , HIGH ); 
+    digitalWrite ( in4 , LOW ); MotorSpeedB = mapa ( joyposDE , 510 , 1023 , 0 , 255 ); } else { // Isso foi interrompido    
+    
+   
+    
+         
+    
+ 
+    
+    MotorSpeedA = 0 ; MotorSpeedB = 0 ; } // Definir as velocidades do motor 
+    analogWrite ( enA , MotorSpeedA ); 
+    analogWrite ( enB , MotorSpeedB ); }  
